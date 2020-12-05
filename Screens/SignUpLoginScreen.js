@@ -1,15 +1,17 @@
 import * as React from "react";
-import {View,TextInput,StyleSheet, TouchableOpacity, Alert} from "react-native";
+import {View,TextInput,StyleSheet, TouchableOpacity, Alert,Text} from "react-native";
 import firebase from "firebase";
-//import db from "../config";
+import db from "../config";
+import { Header } from 'react-native-elements';
+
 
 export default class SignUpLoginScreen extends React.Component{
 
     constructor(){
         super();
         this.state={
-            emailId='',
-            password=''
+            emailId:'',
+            password:''
         }
     }
 
@@ -40,25 +42,43 @@ export default class SignUpLoginScreen extends React.Component{
     render(){
         return(
             <View style={{alignItems:'center'}}>
-
-                <Text> style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}USERNAME</Text>
+            <Header
+         backgroundColor={'orange'}
+        centerComponent={{
+          text: 'Barter App',
+          style: { color: '#fff', fontSize: 20 },
+          }}
+             />
+                <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>USERNAME</Text>
 
             <TextInput
             keyboardType='email-address'
             style={styles.input}
-            onChangeText={()=>{
+            onChangeText={(text)=>{
                 this.setState({
                     emailId:text
                 })
             }}
             />
 
+           
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          onChangeText={(text) => {
+            this.setState({ password: text });
+          }}
+          value={this.state.password}
+        />
+
             <View style={{alignItems:'center'}}>
+
             <TouchableOpacity 
              style={styles.button}
              onPress = {()=>{this.userLogin(this.state.emailId , this.state.password)}}
              >
-            <Text> style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}LOGIN</Text>
+            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>LOGIN</Text>
 
             </TouchableOpacity>
 
@@ -66,7 +86,7 @@ export default class SignUpLoginScreen extends React.Component{
              style={styles.button}
              onPress = {()=>{this.userSignUp(this.state.emailId , this.state.password)}}
              >
-            <Text> style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}SIGN UP</Text>
+            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>SIGN UP</Text>
 
             </TouchableOpacity>
             </View>
