@@ -1,5 +1,5 @@
 import * as React from "react";
-import {View,TextInput,StyleSheet, TouchableOpacity, Alert,Text} from "react-native";
+import {View,TextInput,StyleSheet, TouchableOpacity, Alert,Text,Image} from "react-native";
 import firebase from "firebase";
 import db from "../config";
 import { Header } from 'react-native-elements';
@@ -41,7 +41,7 @@ export default class SignUpLoginScreen extends React.Component{
 
     render(){
         return(
-            <View style={{alignItems:'center'}}>
+            <View style={{alignItems:'center',backgroundColor:"pink"}}>
             <Header
          backgroundColor={'orange'}
         centerComponent={{
@@ -49,10 +49,11 @@ export default class SignUpLoginScreen extends React.Component{
           style: { color: '#fff', fontSize: 20 },
           }}
              />
-                <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>USERNAME</Text>
+               
 
             <TextInput
             keyboardType='email-address'
+            placeholder="Email"
             style={styles.input}
             onChangeText={(text)=>{
                 this.setState({
@@ -78,7 +79,7 @@ export default class SignUpLoginScreen extends React.Component{
              style={styles.button}
              onPress = {()=>{this.userLogin(this.state.emailId , this.state.password)}}
              >
-            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>LOGIN</Text>
+            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,alignSelf:"center"}}>LOGIN</Text>
 
             </TouchableOpacity>
 
@@ -86,7 +87,7 @@ export default class SignUpLoginScreen extends React.Component{
              style={styles.button}
              onPress = {()=>{this.userSignUp(this.state.emailId , this.state.password)}}
              >
-            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,}}>SIGN UP</Text>
+            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,alignSelf:"center",alignItems:"center",justifyContent:"center"}}>SIGN UP</Text>
 
             </TouchableOpacity>
             </View>
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       justifyContent: 'center',
       borderRadius: 2,
-      marginTop: 10,
+      marginTop: 30,
       borderWidth:2,
       width:200,
       height:50,
@@ -122,9 +123,21 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       justifyContent: 'center',
       borderRadius: 12,
-      marginTop: 10,
+      marginTop: 30,
       borderWidth:2,
       width:150,
       height:50,
     },
+
+    
+
+  imageIcon: {
+    width: 400,
+    height: 200,
+    justifyContent: 'center',
+    alignItems:"center",
+    alignSelf:"center",
+    borderRadius: 10,
+    marginTop:20
+  },
   });
