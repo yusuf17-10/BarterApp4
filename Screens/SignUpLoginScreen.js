@@ -1,5 +1,16 @@
 import * as React from "react";
-import {View,TextInput,StyleSheet, TouchableOpacity, Alert,Text,Image} from "react-native";
+import {
+   View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Modal,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Image,
+} from "react-native";
 import firebase from "firebase";
 import db from "../config";
 import { Header } from 'react-native-elements';
@@ -11,7 +22,13 @@ export default class SignUpLoginScreen extends React.Component{
         super();
         this.state={
             emailId:'',
-            password:''
+            password:'',
+            isModalVisible: false,
+            firstName: '',
+            lastname: '',
+            address: '',
+            phone: '',
+            confirmPassword: '',
         }
     }
 
@@ -27,21 +44,148 @@ export default class SignUpLoginScreen extends React.Component{
         })
     }
 
-    userSignUp = (username, password) =>{
-        firebase.auth().createUserWithEmailAndPassword(username,password)
-        .then((response)=>{
-            return Alert.alert("User Added Successfully")
-        })
-        .catch((error)=>{
-            var errorCode = error.code;
+    userSignUp = (username, password,confirmPassword) => {
+        if(password!==confirmPassword){
+          Alert.alert("Password Does Not Match")
+        }else{
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(username, password)
+          .then(() => {
+            return Alert.alert('User Added Successfully');
+          })
+          .catch((error) => {
             var errorMessage = error.message;
-            return Alert.alert(errorMessage)
-        })
-    }
-
+            return Alert.alert(errorMessage);
+          });
+          db.collection('user').add({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            phone: this.state.phone,
+            address: this.state.address,
+            emailId:this.state.emailId
+          });
+        }
+      };
+    
+      showModal = () => {
+        return (
+          <Modal
+            visible={this.state.isModalVisible}
+            animationType="fade"
+            transparent={false}>
+            <View>
+              <ScrollView>
+                <KeyboardAvoidingView>
+                  <Text style={{alignItems:"center",alignSelf:"center",backgroundColor:"pink",fontSize:20}}>Registration</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder={'firstName'}
+                    maxLength={8}
+                    onChangeText={(text) => {
+                      this.setState({ firstName: text });
+                    }}
+                    value={this.state.firstName}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder={'LastName'}
+                    maxLength={8}
+                    onChangeText={(text) => {
+                      this.setState({ lastName: text });
+                    }}
+                    value={this.state.lastName}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder={'address'}
+                    multiline={true}
+                    onChangeText={(text) => {
+                      this.setState({ address: text });
+                    }}
+                    value={this.state.address}
+    
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder={'PhoneNumber'}
+                    keyboardType={'numeric'}
+                    maxLength={10}
+                    onChangeText={(text) => {
+                      this.setState({ phone: text });
+                    }}
+                    value={this.state.phone}
+    
+                  />
+    
+            <TextInput
+              keyboardType={"email-address"}
+              style={styles.input}
+              placeholder="Email"
+              onChangeText={(text) => {
+                this.setState({ emailId: text });
+              }}
+              value={this.state.emailId}
+            />
+    
+                 <TextInput
+                    style={styles.input}
+                    placeholder={'password'}
+                    secureTextEntry={true}
+                    onChangeText={(text) => {
+                      this.setState({ password: text });
+                    }}
+                    value={this.state.password}
+    
+                  />
+    
+                  <TextInput
+                    style={styles.input}
+                    placeholder={'ConfirmPassword'}
+                    secureTextEntry={true}
+                    onChangeText={(text) => {
+                      this.setState({ confirmPassword: text });
+                    }}
+                    value={this.state.confirmPassword}
+    
+                  />
+    
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      this.userSignUp(
+                        this.state.emailId,
+                        this.state.password,
+                        this.state.confirmPassword
+                      );
+                    }}>
+                    <Text>Register</Text>
+                  </TouchableOpacity>
+    
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      this.setState({ isModalVisible: false });
+                    }}>
+                    <Text>cancel</Text>
+                  </TouchableOpacity>
+                </KeyboardAvoidingView>
+              </ScrollView>
+            </View>
+          </Modal>
+        );
+      };
+    
+    
+  
+     
     render(){
         return(
             <View style={{alignItems:'center',backgroundColor:"pink"}}>
+                     {
+                     this.showModal()
+                     }
+
             <Header
          backgroundColor={'orange'}
         centerComponent={{
