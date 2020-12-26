@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-   View,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
@@ -71,13 +71,14 @@ export default class SignUpLoginScreen extends React.Component{
       showModal = () => {
         return (
           <Modal
+            style={{backgroundColor:"#FEFAEC"}}
             visible={this.state.isModalVisible}
             animationType="fade"
             transparent={false}>
             <View>
               <ScrollView>
                 <KeyboardAvoidingView>
-                  <Text style={{alignItems:"center",alignSelf:"center",backgroundColor:"pink",fontSize:20}}>Registration</Text>
+                  <Text style={{alignItems:"center",alignSelf:"center",backgroundColor:"pink",fontSize:30}}>Registration</Text>
                   <TextInput
                     style={styles.input}
                     placeholder={'firstName'}
@@ -153,11 +154,7 @@ export default class SignUpLoginScreen extends React.Component{
                   <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                      this.userSignUp(
-                        this.state.emailId,
-                        this.state.password,
-                        this.state.confirmPassword
-                      );
+                      this.userSignUp(this.state.emailId,this.state.password,this.state.confirmPassword);
                     }}>
                     <Text>Register</Text>
                   </TouchableOpacity>
@@ -181,20 +178,23 @@ export default class SignUpLoginScreen extends React.Component{
      
     render(){
         return(
-            <View style={{alignItems:'center',backgroundColor:"pink"}}>
+            <View style={{alignItems:'center',backgroundColor:"#FEFAEC"}}>
                      {
                      this.showModal()
                      }
 
             <Header
-         backgroundColor={'orange'}
+         backgroundColor={'#A9EEE6'}
         centerComponent={{
           text: 'Barter App',
-          style: { color: '#fff', fontSize: 20 },
+          style: { color: '#625772', fontSize: 20 },
           }}
              />
-               
 
+          <Image 
+            style={styles.imageIcon} 
+            source={require('../assets/IMG.jpg')}
+          />
             <TextInput
             keyboardType='email-address'
             placeholder="Email"
@@ -223,15 +223,16 @@ export default class SignUpLoginScreen extends React.Component{
              style={styles.button}
              onPress = {()=>{this.userLogin(this.state.emailId , this.state.password)}}
              >
-            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,alignSelf:"center"}}>LOGIN</Text>
+            <Text style={{color:'#E71989', fontSize:18, fontWeight:'bold',alignSelf:"center"}}>LOGIN</Text>
 
             </TouchableOpacity>
 
             <TouchableOpacity 
+            style={{backgroundColor:"pink"}}
              style={styles.button}
-             onPress = {()=>{this.userSignUp(this.state.emailId , this.state.password)}}
+             onPress = {()=>{this.setState({isModalVisible:true})}}
              >
-            <Text style={{color:'aqua', fontSize:18, fontWeight:'bold',marginLeft:55,alignSelf:"center",alignItems:"center",justifyContent:"center"}}>SIGN UP</Text>
+            <Text style={{color:'#E71989', fontSize:18, fontWeight:'bold',alignSelf:"center",alignItems:"center",justifyContent:"center"}}>SIGN UP</Text>
 
             </TouchableOpacity>
             </View>
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
     },
     
     input: {
-      backgroundColor: 'green',
+      backgroundColor: 'white',
       alignItems: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
@@ -260,9 +261,10 @@ const styles = StyleSheet.create({
       borderWidth:2,
       width:200,
       height:50,
+      paddingLeft:10
     },
     button: {
-      backgroundColor: 'green',
+      backgroundColor: '#74DBEF',
       alignItems: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
