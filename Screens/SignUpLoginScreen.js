@@ -35,7 +35,7 @@ export default class SignUpLoginScreen extends React.Component{
     userLogin = (username, password)=>{
         firebase.auth().signInWithEmailAndPassword(username, password)
         .then(()=>{
-            return Alert.alert("Successfully Login")
+          this.props.navigation.navigate("HomeScreen")
         })
         .catch((error)=>{
             var errorCode = error.code;
@@ -58,7 +58,7 @@ export default class SignUpLoginScreen extends React.Component{
             var errorMessage = error.message;
             return Alert.alert(errorMessage);
           });
-          db.collection('user').add({
+          db.collection('users').add({
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             phone: this.state.phone,
