@@ -31,7 +31,7 @@ export default class ExchangeScreen extends React.Component{
         return(
             <View>
         
-                <Text>
+                <Text style={{color:"orange",alignSelf:"center",fontSize:25,marginBottom:10}}>
                     Exchange Screen
                 </Text>
 
@@ -79,7 +79,8 @@ const styles=StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         padding:10,
-        marginTop:10
+        marginTop:10,
+        alignSelf:"center"
     },
     input:{
         backgroundColor:"#F0E1DE",
@@ -89,7 +90,11 @@ const styles=StyleSheet.create({
         borderWidth:1,
         textAlign:"center",
         padding:10,
-        marginTop:10
+        marginBottom:20,
+        marginTop:10,
+        justifyContent:"center",
+        alignSelf:"center"
+
     },
     buttonText:{
         fontSize:20,
